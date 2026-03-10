@@ -17,4 +17,4 @@ class api():
         bytes = text.encode('utf-8')
         return gzip.compress(bytes)
     def gzipDecode(self, Encoded):
-        return gzip.decompress(eval(Encoded)).decode('utf-8')
+        return gzip.decompress(Encoded).decode('utf-8')
