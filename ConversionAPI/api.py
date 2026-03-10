@@ -10,7 +10,7 @@ class api():
     def get_format(self):
         image_format = self.image.format
         return image_format
-    def get_pixel(self, x, y):
+    def getpixel(self, x, y):
         pixel_value = self.image.getpixel((x, y))
         return pixel_value
     def gzipEncode(self, text):
@@ -18,3 +18,8 @@ class api():
         return gzip.compress(bytes)
     def gzipDecode(self, Encoded):
         return gzip.decompress(Encoded).decode('utf-8')
+    def convert(self, new_format):
+        #possible values: RGB, RGBA, L, etc.
+        new_image = self.image.convert(new_format)
+        return new_image
+        

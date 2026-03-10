@@ -12,9 +12,9 @@ print(f"Dimensions: {dimensions}")
 image_format = api.get_format()
 print(f"Format: {image_format}")
 
-#Get pixel value at (10, 10)
-pixel_value = api.get_pixel(10, 10)
-print(f"Pixel value at (10, 10): {pixel_value}")
+#Get pixel value at (100, 100)
+pixel_value = api.getpixel(100, 100)
+print(f"Pixel value at (100, 100): {pixel_value}")
 
 #Gzip Encode and Decode text
 text = "Hello World!"
