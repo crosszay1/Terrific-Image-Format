@@ -1,4 +1,4 @@
-from compression import gzip
+import gzip
 
 from PIL import Image
 class api():
@@ -22,4 +22,6 @@ class api():
         #possible values: RGB, RGBA, L, etc.
         new_image = self.image.convert(new_format)
         return new_image
+    def show(self):
+        self.image.show()
         

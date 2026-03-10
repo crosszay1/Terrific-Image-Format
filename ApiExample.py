@@ -1,8 +1,8 @@
 from ConversionAPI.api import api
 
-
+image = "ExampleImages/Colorwheel.jpg"
 #Associate image
-api = api('Example_image.png')
+api = api(image)
 
 #Get dimensions
 dimensions = api.get_dimensions()
@@ -25,4 +25,6 @@ print(f"Encoded text: {encoded_text}")
 decoded_text = api.gzipDecode(encoded_text)
 print(f"Decoded text: {decoded_text}")
 
-#next
+convertedImage = api.convert("L") #convert to grayscale, we can also convert to RGB and RGBA. See api.py for all possible values.
+
+convertedImage.show()
