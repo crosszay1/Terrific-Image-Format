@@ -24,4 +24,19 @@ class api():
         return new_image
     def show(self):
         self.image.show()
-        
+    def IndexImage(self):
+        #Get dimensions of the image
+        width, height = self.get_dimensions()
+        #Put in RGB mode
+        self.image = self.image.convert("RGB")
+        indexed = []
+        for y in range(height):
+            for x in range(width):
+                pix = self.getpixel(x, y) 
+                indexed.append(((x, y), pix))
+        return indexed
+    def main(self):
+        #main function that does everything
+        Indexed = self.IndexImage()
+        Gzipped = self.gzipEncode(str(Indexed))
+        return Gzipped

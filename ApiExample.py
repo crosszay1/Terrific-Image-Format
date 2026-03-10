@@ -4,6 +4,8 @@ image = "ExampleImages/Colorwheel.jpg"
 #Associate image
 api = api(image)
 
+convertedImage = api.convert("L") #convert to grayscale, we can also convert to RGB and RGBA. See api.py for all possible values.
+
 #Get dimensions
 dimensions = api.get_dimensions()
 print(f"Dimensions: {dimensions}")
@@ -25,6 +27,4 @@ print(f"Encoded text: {encoded_text}")
 decoded_text = api.gzipDecode(encoded_text)
 print(f"Decoded text: {decoded_text}")
 
-convertedImage = api.convert("L") #convert to grayscale, we can also convert to RGB and RGBA. See api.py for all possible values.
-
-convertedImage.show()
+print(api.main())
