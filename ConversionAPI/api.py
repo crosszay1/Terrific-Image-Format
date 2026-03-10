@@ -11,3 +11,4 @@ class api():
     def get_pixel(self, x, y):
         pixel_value = self.image.getpixel((x, y))
         return pixel_value
+    
