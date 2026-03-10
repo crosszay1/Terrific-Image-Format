@@ -1,0 +1,17 @@
+from ConversionAPI.api import api
+
+
+#Associate image
+api = api('Example_image.png')
+
+#Get dimensions
+dimensions = api.get_dimensions()
+print(f"Dimensions: {dimensions}")
+
+#Get format
+image_format = api.get_format()
+print(f"Format: {image_format}")
+
+#Get pixel value at (10, 10)
+pixel_value = api.get_pixel(10, 10)
+print(f"Pixel value at (10, 10): {pixel_value}")
