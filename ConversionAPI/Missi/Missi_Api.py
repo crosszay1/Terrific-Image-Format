@@ -1,5 +1,4 @@
 import gzip
-import binascii
 
 from PIL import Image
 class api():
@@ -29,8 +28,7 @@ class api():
         #Get dimensions of the image
         width, height = self.get_dimensions()
         #Put in RGB mode
-        #self.image = self.image.convert("RGB")
-        hex_string = binascii.hexlify(self.image).decode('utf-8')
+        self.image = self.image.convert("RGB")
         indexed = []
         for y in range(height):
             for x in range(width):
