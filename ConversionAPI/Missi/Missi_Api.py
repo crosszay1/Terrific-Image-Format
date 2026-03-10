@@ -38,5 +38,5 @@ class api():
     def main(self):
         #main function that does everything
         Indexed = self.IndexImage()
-        #Gzipped = self.gzipEncode(str(Indexed))
+        Gzipped = self.gzipEncode(str(Indexed))
         return Indexed
