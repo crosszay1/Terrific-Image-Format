@@ -13,8 +13,8 @@ class api():
     def get_pixel(self, x, y):
         pixel_value = self.image.getpixel((x, y))
         return pixel_value
-    def gzipEncode(input):
-        bytes = input.encode('utf-8')
+    def gzipEncode(self, text):
+        bytes = text.encode('utf-8')
         return gzip.compress(bytes)
-    def gzipDecode(input):
-        return gzip.decompress(eval(input)).decode('utf-8')
+    def gzipDecode(self, Encoded):
+        return gzip.decompress(eval(Encoded)).decode('utf-8')
