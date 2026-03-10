@@ -15,3 +15,14 @@ print(f"Format: {image_format}")
 #Get pixel value at (10, 10)
 pixel_value = api.get_pixel(10, 10)
 print(f"Pixel value at (10, 10): {pixel_value}")
+
+#Gzip Encode and Decode text
+text = "Hello World!"
+
+encoded_text = api.gzipEncode(text)
+print(f"Encoded text: {encoded_text}")
+
+decoded_text = api.gzipDecode(encoded_text)
+print(f"Decoded text: {decoded_text}")
+
+#next
