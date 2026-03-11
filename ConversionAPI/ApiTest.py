@@ -1,4 +1,4 @@
-from Missi_Api import api
+from Api import api
 
 image = "ExampleImages/Colorwheel.jpg"
 api = api(image) #Associate image
