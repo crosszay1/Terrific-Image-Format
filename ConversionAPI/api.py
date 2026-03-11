@@ -30,13 +30,9 @@ class api():
         #Put in RGB mode
         self.image = self.image.convert("RGB")
         indexed = []
+        indexed.append(f";{width}, {height};")
         for y in range(height):
             for x in range(width):
                 pix = self.getpixel(x, y) 
-                indexed.append(((x, y), pix))
+                indexed.append((pix))
         return indexed
-    def main(self):
-        #main function that does everything
-        Indexed = self.IndexImage()
-        Gzipped = self.gzipEncode(str(Indexed))
-        return Gzipped

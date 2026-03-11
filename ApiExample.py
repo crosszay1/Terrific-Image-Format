@@ -27,4 +27,13 @@ print(f"Encoded text: {encoded_text}")
 decoded_text = api.gzipDecode(encoded_text)
 print(f"Decoded text: {decoded_text}")
 
-print(api.main())
+#Index an image
+indexed = api.IndexImage()
+print(indexed)
+exit(1)
+#gzip the indexed image 
+gzipped = api.gzipEncode(str(indexed))
+
+#ungzip an image
+ungzipped = api.gzipDecode(gzipped)
+
