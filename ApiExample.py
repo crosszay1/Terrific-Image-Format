@@ -29,11 +29,11 @@ print(f"Decoded text: {decoded_text}")
 
 #Index an image
 indexed = api.IndexImage()
-print(indexed)
-exit(1)
+
 #gzip the indexed image 
 gzipped = api.gzipEncode(str(indexed))
+print(gzipped)
+exit(1)
 
 #ungzip an image
 ungzipped = api.gzipDecode(gzipped)
-
