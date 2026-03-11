@@ -29,10 +29,12 @@ class api():
         width, height = self.get_dimensions()
         #Put in RGB mode
         self.image = self.image.convert("RGB")
+
         indexed = []
         indexed.append(f";{width}, {height};")
         for y in range(height):
             for x in range(width):
-                pix = self.getpixel(x, y) 
-                indexed.append((pix))
+                rgbPix = self.getpixel(x, y)
+                hexPix = '%x%x%x' % (rgbPix[0], rgbPix[1], rgbPix[2])
+                indexed.append((hexPix))
         return indexed
