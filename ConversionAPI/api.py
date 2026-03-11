@@ -37,4 +37,5 @@ class api():
                 rgbPix = self.getpixel(x, y)
                 hexPix = '%x%x%x' % (rgbPix[0], rgbPix[1], rgbPix[2])
                 indexed.append((hexPix))
-        return indexed
+
+        return "".join(indexed)
