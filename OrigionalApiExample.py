@@ -1,11 +1,4 @@
 from ConversionAPI.api import api
-from pathlib import Path
-
-image = "ExampleImages/Colorwheel.jpg"
-#Associate image
-api = api(image)
-
-from ConversionAPI.api import api
 
 image = "ExampleImages/Colorwheel.jpg"
 #Associate image
@@ -36,20 +29,10 @@ print(f"Decoded text: {decoded_text}")
 
 #Index an image
 indexed = api.IndexImage()
+print(indexed)
+exit(1)
 #gzip the indexed image 
 gzipped = api.gzipEncode(str(indexed))
 
-#Ungzip an image
+#ungzip an image
 ungzipped = api.gzipDecode(gzipped)
-
-
-
-
-
-#Make new .tif file
-title = Path(image).stem
-
-with open(f"{title}.tif", "w") as file:
-    file.write(str(gzipped))
-
-exit(1)
