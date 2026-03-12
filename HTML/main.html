@@ -1,14 +1,31 @@
 <html>
    <head>
-           <script src="./main.js"></script>
+      <script>
+
+          // Source - https://stackoverflow.com/a/63151936
+         // Posted by Anton
+         // Retrieved 2026-03-12, License - CC BY-SA 4.0
+         function file(){
+         var input = document.getElementById('input');
+         input.addEventListener('change', handleFiles);
+         
+         function handleFiles(e) {
+             var ctx = document.getElementById('canvas').getContext('2d');
+             var img = new Image;
+             img.src = URL.createObjectURL(e.target.files[0]);
+             img.onload = function() {
+                 ctx.drawImage(img, 0, 0, 400, 300);
+             }
+         }}
+      </script>
    </head>
-   <body>
+   <body onload="file()">
       <div style="width: 22%;">
          <center style="
             inline-size: max-content;
             ">
             <div>
-               <input type="file" id="input" multiple="">
+               <input type="file" id="input"/	>
                <button>
                Convert
                </button>
@@ -19,9 +36,7 @@
          </center>
          <br>
          <div style="margin-top: 13px;"></div>
-         <img src="" id="Display">            
+         <canvas width="400" height="300" id="canvas"/>
       </div>
    </body>
 </html>
-
-
