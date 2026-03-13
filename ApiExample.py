@@ -1,13 +1,7 @@
 from ConversionAPI.api import api
 from pathlib import Path
 
-image = "ExampleImages/Colorwheel.jpg"
-#Associate image
-api = api(image)
-
-from ConversionAPI.api import api
-
-image = "ExampleImages/Colorwheel.jpg"
+image = "ExampleImages/Colorwheel.png"
 #Associate image
 api = api(image)
 
