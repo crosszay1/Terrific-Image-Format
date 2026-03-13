@@ -40,10 +40,3 @@ ungzipped = api.gzipDecode(gzipped)
 
 
 
-#Make new .tif file
-title = Path(image).stem
-
-with open(f"{title}.tif", "w") as file:
-    file.write(str(gzipped))
-
-exit(1)
