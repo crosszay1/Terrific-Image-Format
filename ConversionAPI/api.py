@@ -35,7 +35,8 @@ class api():
         for y in range(height):
             for x in range(width):
                 rgbPix = self.getpixel(x, y)
-                hexPix = '%x%x%x' % (rgbPix[0], rgbPix[1], rgbPix[2])
-                indexed.append((hexPix))
+                hexPix = "".join(f"{round(c / 17):x}" for c in rgbPix)
+                #hexPix = '%x%x%x' % (rgbPix[0], rgbPix[1], rgbPix[2])
+                indexed.append(hexPix)
 
         return "".join(indexed)
