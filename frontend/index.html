@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+</head>
+<body>
+    <h1>Image Converter</h1>
+
+    <h2>Convert Image</h2>
+    <input type="file" id="convertInput" accept="image/*">
+    <button id="convertBtn">Convert</button>
+
+    <h2>View TIF File</h2>
+    <input type="file" id="viewInput" accept=".tif"> 
+    <button id="viewBtn">View</button>
+
+    <h2>Preview</h2>
+    <canvas id="preview"></canvas>
+
+    <script>
+        // NO TOUCHY TOUCHY UNLESS WE START MOVING TO PROD!!!! - Brentan
+        const API_URL = '';
+
+        /**
+         * Decompresses gzip-encoded blob and returns raw bytes.
+         * @param {Blob} blob: Gzip-compressed blob
+         * @returns {Promise<ArrayBuffer>}
+         * @author Brentan
+         */
+        async function decompressGzip(blob) {
+            const stream = blob.stream().pipeThrough(new DecompressionStream('gzip'));
+            return await new Response(stream).arrayBuffer();
+        }
+
+        /**
+         * Parses custom TIF format: header (;width, height;) followed by hex pixel data.
+         * @param {string} text: Decompressed TIF text
+         * @returns {{ width: number, height: number, pixels: string }}
+         * @throws {Error} When format is invalid
+         * @author Brentan
+         */
+        function parseTifFormat(text) {
+            const headerEnd = text.indexOf(';', 1);
+            if (headerEnd === -1) throw new Error('Invalid format');
+            const header = text.slice(1, headerEnd);
+            const [width, height] = header.split(',').map(s => parseInt(s.trim(), 10));
+            const pixels = text.slice(headerEnd + 1);
+            return { width, height, pixels };
+        }
+
+        /**
+         * Converts hex-encoded pixel string to RGBA Uint8ClampedArray.
+         * @param {string} pixels: Three hex chars per pixel (e.g. "ff0")
+         * @param {number} width: Image width
+         * @param {number} height: Image height
+         * @returns {Uint8ClampedArray}
+         * @author Brentan
+         */
+        function decodePixels(pixels, width, height) {
+            const data = new Uint8ClampedArray(width * height * 4);
+            for (let i = 0; i < width * height; i++) {
+                const r = parseInt(pixels[i * 3], 16) * 17;
+                const g = parseInt(pixels[i * 3 + 1], 16) * 17;
+                const b = parseInt(pixels[i * 3 + 2], 16) * 17;
+                data[i * 4] = r;
+                data[i * 4 + 1] = g;
+                data[i * 4 + 2] = b;
+                data[i * 4 + 3] = 255;
+            }
+            return data;
+        }
+
+        /**
+         * Renders pixel data to the preview canvas.
+         * @param {number} width: Image width
+         * @param {number} height: Image height
+         * @param {Uint8ClampedArray} pixelData" RGBA pixel data
+         */
+        function displayImage(width, height, pixelData) {
+            const canvas = document.getElementById('preview');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.createImageData(width, height);
+            imageData.data.set(pixelData);
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        /**
+         * Decompresses, parses, and displays a TIF blob in the preview.
+         * @param {Blob} blob: Gzip-compressed TIF file
+         * @returns {Promise<void>}
+         * @author Brentan
+         */
+        async function viewTifBlob(blob) {
+            const decompressed = await decompressGzip(blob);
+            const text = new TextDecoder().decode(decompressed);
+            const { width, height, pixels } = parseTifFormat(text);
+            const pixelData = decodePixels(pixels, width, height);
+            displayImage(width, height, pixelData);
+        }
+
+        // Converting Code: upload image, trigger download, show preview
+        document.getElementById('convertBtn').addEventListener('click', async () => {
+            const input = document.getElementById('convertInput');
+            if (!input.files.length) { alert('Select an image first'); return; }
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+            try {
+                const res = await fetch(`${API_URL}/convert`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!res.ok) throw new Error(res.statusText);
+                const blob = await res.blob();
+                const disposition = res.headers.get('Content-Disposition');
+                const filename = disposition?.match(/filename=(.+)/)?.[1]?.replace(/"/g, '').trim() || input.files[0].name.replace(/\.[^/.]+$/, '') + '.tif';
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(a.href);
+                viewTifBlob(blob);
+            } catch (e) {
+                alert('Convert failed: ' + e.message);
+            }
+        });
+
+        // Viewing Code: load local TIF file and display in preview
+        document.getElementById('viewBtn').addEventListener('click', async () => {
+            const input = document.getElementById('viewInput');
+            if (!input.files.length) {
+                alert('Select a TIF file first');
+                return;
+            }
+            try {
+                const blob = input.files[0];
+                await viewTifBlob(blob);
+            } catch (error) {
+                alert('View failed: ' + error.message);
+            }
+        });
+
+    </script>
+</body>
+</html>
