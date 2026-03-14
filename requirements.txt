@@ -2,3 +2,4 @@ pillow==12.1.1
 fastapi
 uvicorn
 requests
+python-multipart
