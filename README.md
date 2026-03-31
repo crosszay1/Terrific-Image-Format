@@ -1,5 +1,5 @@
 # Terrific-Image-Format
-Terrific Image Format (TIF) is the world's best image format (Source: me)
+Terrific Image Format (TIF) is the world's best image format!*
 
 ## Features
 256 colors  
@@ -18,3 +18,11 @@ Then go to your web browser and open
 ~~~
 localhost:8000
 ~~~
+
+
+
+
+
+
+
+*I would like this to be true, but it's not. TIF is a passion project, and is not designed to be used in real-world applications.
