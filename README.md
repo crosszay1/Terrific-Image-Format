@@ -25,4 +25,4 @@ localhost:8000
 
 
 
-*I would like this to be true, but it's not. TIF is a passion project, and is not designed to be used in real-world applications.
+*It's not
