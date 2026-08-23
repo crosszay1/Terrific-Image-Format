@@ -2,7 +2,7 @@
 Terrific Image Format (TIF) is the world's best image format!*
 
 ## Features
-256 colors  
+4096 colors  
 GZIP compression  
 Very small file sizes
 ## Getting started
